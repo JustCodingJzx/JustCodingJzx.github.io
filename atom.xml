@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://JustCodingJzx.github.io</id>
+    <title>JustCoding</title>
+    <updated>2020-07-24T08:17:36.353Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://JustCodingJzx.github.io"/>
+    <link rel="self" href="https://JustCodingJzx.github.io/atom.xml"/>
+    <subtitle>记录深度学习点点滴滴 😇</subtitle>
+    <logo>https://JustCodingJzx.github.io/images/avatar.png</logo>
+    <icon>https://JustCodingJzx.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, JustCoding</rights>
+    <entry>
+        <title type="html"><![CDATA[Hello]]></title>
+        <id>https://JustCodingJzx.github.io/post/hello-gridea/</id>
+        <link href="https://JustCodingJzx.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎阅读本博客 <strong>JustCoding</strong> ！<br>
+✍️  <strong>JustCoding</strong> 是一个记录了本人学习##Deep learning##过程中的点点滴滴，可能会更侧重于计算机视觉方面的理解。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎阅读本博客 <strong>JustCoding</strong> ！<br>
+✍️  <strong>JustCoding</strong> 是一个记录了本人学习##Deep learning##过程中的点点滴滴，可能会更侧重于计算机视觉方面的理解。</p>
+<!-- more -->
+<p><a href="https://github.com/JustCodingJzx">Github</a><br>
+<a href="https://space.bilibili.com/57540015">B站 主页</a><br>
+<a href="http://fehey.com/">zhihu</a></p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
