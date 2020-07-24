@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://JustCodingJzx.github.io</id>
     <title>JustCoding</title>
-    <updated>2020-07-24T08:17:36.353Z</updated>
+    <updated>2020-07-24T08:41:20.536Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://JustCodingJzx.github.io"/>
     <link rel="self" href="https://JustCodingJzx.github.io/atom.xml"/>
@@ -10,6 +10,101 @@
     <logo>https://JustCodingJzx.github.io/images/avatar.png</logo>
     <icon>https://JustCodingJzx.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, JustCoding</rights>
+    <entry>
+        <title type="html"><![CDATA[结构/联合/枚举]]></title>
+        <id>https://JustCodingJzx.github.io/post/jie-gou-lian-he-mei-ju/</id>
+        <link href="https://JustCodingJzx.github.io/post/jie-gou-lian-he-mei-ju/">
+        </link>
+        <updated>2020-07-24T08:28:11.000Z</updated>
+        <content type="html"><![CDATA[<p>本文记录下<strong>结构体</strong>、<strong>联合</strong>和<strong>枚举</strong>.<br>
+[toc]</p>
+<h2 id="结构体">结构体</h2>
+<h3 id="1-结构体类型">1 结构体类型</h3>
+<p>​	结构类型的标记有两种方法：</p>
+<pre><code class="language-c">struct part{
+  int number;
+  char name[5];
+};
+</code></pre>
+<p>​	这种标记下，声明变量如下：</p>
+<p><code>struct part part1={100, 'Bob'}; //struct字段不可以省略</code></p>
+<p>​	另外使用typedef来声明结构标记：</p>
+<pre><code>struct part{
+	int number;
+	char name[5];
+};
+typedef struct part Part;
+</code></pre>
+<p>​	可以简洁的写成如下形式：</p>
+<pre><code class="language-c">typedef struct{
+  int number;
+  char name[5];
+}Part;
+</code></pre>
+<p>​	声明变量如下：</p>
+<p><code>Part part1={100, 'Bob'};</code></p>
+<h3 id="2-初始化">2 初始化</h3>
+<ul>
+<li><code>Part part1={100,'Bob'}</code>;</li>
+<li><code>Part part2 = part1;</code></li>
+<li><code>Part part2 = (struct part){100,'Bob'};// C99特性，复合字面量，见下文解释</code></li>
+</ul>
+<h3 id="3-参数传递">3 参数传递</h3>
+<p>​	定义如下的函数：</p>
+<pre><code>void print_part(struct part p){...}
+</code></pre>
+<p>​	其中形参为结构体。在<strong>C99</strong>中，可以使用符合字面量作为实参传入。复合字面量用于创建没有名字的结构，生成的结构可以向参数一样传递，可以被函数返回，也可以赋值给变量。</p>
+<p>​	一般，复合字面量包括圆括号里的类型名和后续花括号的一组值。如果复合字面量代表一个结构，类型名可以是结构标记的前面加上struct或者typedef。一个复合字面量可以包括指示符号，就像指定初始化一样：</p>
+<pre><code>print_part((struct part){.number=100, .name=&quot;Bob&quot;});
+or
+print_part((struct part){100, &quot;Bob&quot;});
+</code></pre>
+<h2 id="联合">联合</h2>
+<p>​	联合和结构的使用方法基本一致，不同的是两者的内存分配方式。现在生命一个联合变量u, 且有两个成员：</p>
+<pre><code>struct num{
+	int i;
+	double d;
+};
+struct num s;
+</code></pre>
+<p>​	类似的联合的声明：</p>
+<pre><code>union num{
+	int i;
+	double d;
+};
+union num u;
+</code></pre>
+<p>​	如下图所示，s的成员存储在不同的内存地址中，u的存储在同一个内存地址中。在结构变量s中，成员i和d 占用不同的内存单元。s总共占用了12个字节。而在联合变量u中，成员i和d互相迭代，所以u只占用了8个字节。i和d具有相同的地址。</p>
+<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/JustCodingJzx/Picbed_PicGo/master/image-20200719112646994.png" alt="示例图" loading="lazy"></figure>
+<p>​	由于编译器把联合的成员重叠存储，所以改变其中一个成员会使得存储在任何其他成员中的值发生改变。</p>
+<h2 id="枚举">枚举</h2>
+<p>​	枚举类型是一种值由程序员列出的类型，而且程序员必须为每个值命名（枚举常量）。下例示例枚举的值()（CLUBS、DIAMONDS、HEARTS、SPADES）(表示扑克牌的不同花色)可以赋值给s1,s2:</p>
+<p><code>enum {CLUBS、DIAMONDS、HEARTS、SPADES}s1,s2</code></p>
+<p>​	枚举，结构和联合声明和使用方法都很类似，但是，与结构和联合的成员不同，枚举常量的名字必须不同于作用域范围内声明的其他标识符。</p>
+<p>​	在系统内部，C语言会把枚举变量和常量作为常数来处理。默认情况下，编译器会把整数0,1,2,...赋值给枚举常量。当然我们可以为常量自由选择不同的值，可以在声明时指定：</p>
+<p><code>enum suits{CLUBS=1, DIAMONDS=2,HEARTS=3, SPADES=4}</code></p>
+<h3 id="使用枚举来确定联合中的成员">使用枚举来确定联合中的成员</h3>
+<p>​	在结构体中：</p>
+<pre><code>typedef struct{
+	enum {INT_KIND, DOUBLE_KIND} kind;
+	union{
+		int i;
+		double d;
+	}u;
+	
+} Number;
+</code></pre>
+<p>​	在具体使用的时候：</p>
+<pre><code>void print_number(Number n){
+	if(n.kind = INT_KIND)
+		printf(&quot;%d&quot;, n.u.i);
+	else
+		printf(&quot;%g&quot;, n.u.d);
+}
+</code></pre>
+<p>​	 <code>Part part1={100, 'Bob'};//struct字段不可以省略</code></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello]]></title>
         <id>https://JustCodingJzx.github.io/post/hello-gridea/</id>
