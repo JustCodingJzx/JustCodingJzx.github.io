@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://JustCodingJzx.github.io</id>
     <title>JustCoding</title>
-    <updated>2020-07-24T08:47:32.153Z</updated>
+    <updated>2020-07-24T08:54:13.574Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://JustCodingJzx.github.io"/>
     <link rel="self" href="https://JustCodingJzx.github.io/atom.xml"/>
@@ -16,8 +16,10 @@
         <link href="https://JustCodingJzx.github.io/post/jie-gou-lian-he-mei-ju/">
         </link>
         <updated>2020-07-24T08:28:11.000Z</updated>
-        <content type="html"><![CDATA[<p>本文记录下<strong>结构体</strong>、<strong>联合</strong>和<strong>枚举</strong>.<br>
-[toc]</p>
+        <summary type="html"><![CDATA[<p>本文记录下<strong>结构体</strong>、<strong>联合</strong>和<strong>枚举</strong>.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文记录下<strong>结构体</strong>、<strong>联合</strong>和<strong>枚举</strong>.</p>
+<!-- more -->
 <h2 id="结构体">结构体</h2>
 <h3 id="1-结构体类型">1 结构体类型</h3>
 <p>​	结构类型的标记有两种方法：</p>
@@ -74,8 +76,8 @@ struct num s;
 };
 union num u;
 </code></pre>
-<p>​	如下图所示，s的成员存储在不同的内存地址中，u的存储在同一个内存地址中。在结构变量s中，成员i和d 占用不同的内存单元。s总共占用了12个字节。而在联合变量u中，成员i和d互相迭代，所以u只占用了8个字节。i和d具有相同的地址。</p>
-<figure data-type="image" tabindex="1"><img src="https://raw.githubusercontent.com/JustCodingJzx/Picbed_PicGo/master/image-20200719112646994.png" alt="示例图" loading="lazy"></figure>
+<p>​	如下图所示，s的成员存储在不同的内存地址中，u的存储在同一个内存地址中。在结构变量s中，成员i和d 占用不同的内存单元。s总共占用了12个字节。而在联合变量u中，成员i和d互相迭代，所以u只占用了8个字节。i和d具有相同的地址。<br>
+<img src="https://JustCodingJzx.github.io/post-images/1595580809085.png" alt="" loading="lazy"></p>
 <p>​	由于编译器把联合的成员重叠存储，所以改变其中一个成员会使得存储在任何其他成员中的值发生改变。</p>
 <h2 id="枚举">枚举</h2>
 <p>​	枚举类型是一种值由程序员列出的类型，而且程序员必须为每个值命名（枚举常量）。下例示例枚举的值()（CLUBS、DIAMONDS、HEARTS、SPADES）(表示扑克牌的不同花色)可以赋值给s1,s2:</p>
