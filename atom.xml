@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://JustCodingJzx.github.io</id>
     <title>JustCoding</title>
-    <updated>2020-10-08T12:09:22.922Z</updated>
+    <updated>2020-10-08T12:18:22.543Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://JustCodingJzx.github.io"/>
     <link rel="self" href="https://JustCodingJzx.github.io/atom.xml"/>
@@ -330,10 +330,10 @@ union num u;
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎阅读本博客 <strong>JustCoding</strong> ！<br>
-✍️  <strong>JustCoding</strong> 是一个记录了本人学习##Deep learning##过程中的点点滴滴，可能会更侧重于计算机视觉方面的理解。</p>
+✍️  <strong>JustCoding</strong> 是一个记录了##Deep learning##在工程上实现，应用到具体任务中的点点滴滴，不仅仅包括一些算法的思路和实现，也有一些工程化的代码实现。</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>👏  欢迎阅读本博客 <strong>JustCoding</strong> ！<br>
-✍️  <strong>JustCoding</strong> 是一个记录了本人学习##Deep learning##过程中的点点滴滴，可能会更侧重于计算机视觉方面的理解。</p>
+✍️  <strong>JustCoding</strong> 是一个记录了##Deep learning##在工程上实现，应用到具体任务中的点点滴滴，不仅仅包括一些算法的思路和实现，也有一些工程化的代码实现。</p>
 <!-- more -->
 <p><a href="https://github.com/JustCodingJzx">Github</a><br>
 <a href="https://space.bilibili.com/57540015">B站 主页</a><br>
