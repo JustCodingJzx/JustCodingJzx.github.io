@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://JustCodingJzx.github.io</id>
     <title>JustCoding</title>
-    <updated>2020-07-24T13:38:36.627Z</updated>
+    <updated>2020-10-08T11:26:30.193Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://JustCodingJzx.github.io"/>
     <link rel="self" href="https://JustCodingJzx.github.io/atom.xml"/>
@@ -10,6 +10,135 @@
     <logo>https://JustCodingJzx.github.io/images/avatar.png</logo>
     <icon>https://JustCodingJzx.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, JustCoding</rights>
+    <entry>
+        <title type="html"><![CDATA[指针解惑]]></title>
+        <id>https://JustCodingJzx.github.io/post/zhi-zhen-jie-huo/</id>
+        <link href="https://JustCodingJzx.github.io/post/zhi-zhen-jie-huo/">
+        </link>
+        <updated>2020-10-08T11:20:12.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="敲黑板">敲黑板 🙋‍♂🙋</h3>
+<ul>
+<li>
+<p>一个数据类型加上“*”构成了一个指针类型，大小一定，在32位系统上其值为4个byte。与&quot; * &quot;前面的数据类型无关，即使是void类型。</p>
+</li>
+<li>
+<p>int a[4]; &amp;a与a值相同，但是&amp;a是整个数组的首地址，a是数组首元素的地址。</p>
+</li>
+</ul>
+<h3 id="数组定义声明">数组定义声明</h3>
+<p>char a[100]; //数组定义</p>
+<p>错误声明：</p>
+<p>extern char *a;  // a是一个指针变量</p>
+<p>正确声明：</p>
+<p>extern char a[] 或者 extern char a[100]; //声明不分配空间</p>
+<h3 id="指针-数组对比">指针、数组对比</h3>
+<table>
+<thead>
+<tr>
+<th>指针</th>
+<th>数组</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任何存入p中的数据当做地址来处理， p本身的地址编译器决定</td>
+<td>a代表数据首元素的地址而非数组的首地址。&amp;a是整个数组的首地址，a本身的存储地址编译器决定</td>
+</tr>
+<tr>
+<td>间接访问数据</td>
+<td>直接访问数据</td>
+</tr>
+<tr>
+<td>通常用于动态结构</td>
+<td>存储固定数据且类型相同的元素</td>
+</tr>
+<tr>
+<td>Malloc / free</td>
+<td>隐式分配和删除</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数组指针">数组指针</h3>
+<p>int a[4]={1,2,3,4};</p>
+<p>(int*)a+1与a差4个字节便宜，即指向2这个元素</p>
+<p>(int)a+1表示将a强制转换为int类型，指向a[0]元素的第二个字节</p>
+<h3 id="指针形参">指针形参</h3>
+<p>无法将指针本身传递给一个函数</p>
+<pre><code class="language-c">void fun(char *p){
+	char c = p[3];
+}
+int main()
+{
+	char *p2  = &quot;abcd&quot;;
+	fun(p2);
+	return 0;
+}
+</code></pre>
+<p>p2是main中的一个局部变量，它只在main函数中有效，fun函数无法使用p2的真身，传递到fun函数的是p2的拷贝_p2.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+void GetMemory(char *p, int num)
+{
+    p = (char*)malloc(num*sizeof(char));
+}
+void main()
+{
+  
+    char *str = NULL;
+    GetMemory(str, 10);
+    strcpy(str,&quot;Hello&quot;);
+    printf(&quot;%s\n&quot;, str);
+    free(str);
+    
+
+}
+</code></pre>
+<p>该代码中str本身并没有改变，malloc的内存地址并没有赋值给str, 而是赋给了_str. 两种解决办法：</p>
+<p>1.申请内存的地址作为返回值返回；</p>
+<p>2.使用二级指针；</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+void GetMemory(char **p, int num)
+{
+    *p = (char*)malloc(num*sizeof(char));
+}
+void main()
+{
+  
+    char *str = NULL;
+    GetMemory(&amp;str, 10);
+    strcpy(str,&quot;Hello&quot;);
+    printf(&quot;%s\n&quot;, str);
+    free(str);
+    
+
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C关键字]]></title>
+        <id>https://JustCodingJzx.github.io/post/c-guan-jian-zi/</id>
+        <link href="https://JustCodingJzx.github.io/post/c-guan-jian-zi/">
+        </link>
+        <updated>2020-10-08T11:16:40.000Z</updated>
+        <summary type="html"><![CDATA[<p>本篇主要介绍下register与static两个关键字使用的一些注意事项。😀😀😀</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本篇主要介绍下register与static两个关键字使用的一些注意事项。😀😀😀</p>
+<!-- more -->
+<h4 id="register">register</h4>
+<p>​	register变量必须是被CPU寄存器接受的类型，是一个单个的值，长度小于等于整型的长度。register可能不存放在内存中，不能用取址运算符。</p>
+<h4 id="static">static</h4>
+<p>1.修饰变量</p>
+<p>​	全局变量：作用域仅限于变量被定义的文件中，其他文件即使使用extern也没法使用它；</p>
+<pre><code>局部变量： 函数运行结束，其值仍不会被销毁。
+</code></pre>
+<p>2.修饰函数</p>
+<p>​	函数的作用域仅限于本文件（内部函数）。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[内存分配]]></title>
         <id>https://JustCodingJzx.github.io/post/nei-cun-fen-pei/</id>

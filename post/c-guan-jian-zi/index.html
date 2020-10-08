@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>内存分配 | JustCoding</title>
+<title>C关键字 | JustCoding</title>
 <meta name="description" content="记录深度学习点点滴滴 😇">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,82 +81,24 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>内存分配</h1>
+            <h1>C关键字</h1>
             <p class="article-meta">
-              2020-07-24
-              
-                <a href="https://JustCodingJzx.github.io/tag/Z5B4Qcy38/" class="badge success">
-                  c/c++
-                </a>
+              2020-10-08
               
             </p>
             
             <div class="post-content">
-              <p>​  c语言中声明在&lt;stdlib.h&gt;中的三个内存分配函数：（返回值都是void *）</p>
-<ul>
-<li>malloc：分配内存块，但是不对内存块进行初始化</li>
-<li>calloc：分配内存块，并且对内存块进行清除</li>
-<li>Realloc：调整之前的内存块</li>
-</ul>
+              <p>本篇主要介绍下register与static两个关键字使用的一些注意事项。😀😀😀</p>
 <!-- more -->
-<h3 id="malloc">malloc</h3>
-<p>​	函数原型：void *malloc(size_t size)</p>
-<ol>
-<li>为字符串分配内存：</li>
-</ol>
-<p><code>char *p=malloc(n+1)</code></p>
-<p>​	给n个字符分配空间，不要忘记还有一个空字符作为结尾。</p>
-<ol start="2">
-<li>
-<p>为数组动态分配内存</p>
-<p><code>int *a=malloc(n*sizeof(int))</code></p>
-</li>
-</ol>
-<h3 id="calloc">calloc</h3>
-<p>函数原型：void *calloc(size_t nmemb, size_t size)</p>
-<p>​	该函数为nmemb个元素的数组分配空间，其中每个元素的长度是size个字节。之后对所有位设置为0进行初始化。如：</p>
-<p><code>int *a = calloc(n, sizeof(int))</code></p>
-<p>​	因为calloc会清除分配的内存，所以可使用calloc函数为非空数组分配空间。通过调用以1作为第一个实际参数的calloc函数，可以为任意类型的数据项分配空间：</p>
-<p><code>struct point *p;p=calloc(1, sizeof(struct point));</code></p>
-<p>​	执行此语句后，p将指向结构，且结构中的成员会被置0.</p>
-<h3 id="realloc">realloc</h3>
-<p>函数原型：void *realloc(void *ptr, size_t size)</p>
-<p>​	ptr必须指向内存块，一定是通过malloc或者calloc或者realloc函数的调用取得的。size表示新的内存块,可以大于或者小于原来的size。</p>
-<p><strong>准则</strong>：</p>
-<ul>
-<li>当扩展内存时，realloc不会对添加进的字节进行初始化；</li>
-<li>如果realloc不能按要求扩大内存块，那么它会返回空指针，并且原有的内存块的数据不会发生改变；</li>
-<li>如果realloc第一个参数是空指针，那它的作用等同于malloc函数；</li>
-<li>如果realloc调用是第二个参数是0， 那个它会释放掉内存块。</li>
-</ul>
-<h3 id="悬空指针">悬空指针</h3>
-<p>以上三个内存分配函数用完后需要使用free函数进行释放。调用free(p)函数会释放p指向的内存块，但是不会改变p本身。如果忘记了p不再指向有效内存块，可能发生错误。</p>
-<pre><code>char *p=malloc(4);
-free(p);
-strcpy(p, &quot;abc&quot;);
+<h4 id="register">register</h4>
+<p>​	register变量必须是被CPU寄存器接受的类型，是一个单个的值，长度小于等于整型的长度。register可能不存放在内存中，不能用取址运算符。</p>
+<h4 id="static">static</h4>
+<p>1.修饰变量</p>
+<p>​	全局变量：作用域仅限于变量被定义的文件中，其他文件即使使用extern也没法使用它；</p>
+<pre><code>局部变量： 函数运行结束，其值仍不会被销毁。
 </code></pre>
-<p>​	修改p指向的内存是严重的错误，因为程序对此内存不再有任何的控制权了。</p>
-<h3 id="指向函数的指针">指向函数的指针</h3>
-<p>定义：void (*function)(int);</p>
-<p>​	function可指向任何带有Int型实参的函数，而且此函数返回void值。如果f是这样一个函数，那么可以用下列方式把function指向f:</p>
-<p>​	function=f;</p>
-<p>调用时如下：</p>
-<p>​	（*function）(i); 或者 function(f);</p>
-<p><strong>应用</strong>：</p>
-<p>stdlib.h的函数qsort:</p>
-<p><code>void qsort(void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *));</code></p>
-<p>​	其中base指向数组待进行排序的第一个元素，nmemb是待排序元素的数量，size是每个元素占用字节的大小。compar是指向比较函数的指针。 举例：</p>
-<pre><code>int compare(const void *p, const void *q){
-	if (((struct part *)p)-&gt;number &lt; ((struct part *)q)-&gt;number)
-		return -1;
-	else if (((struct part *)p)-&gt;number == ((struct part *)q)-&gt;number)
-		return 0;
-	else
-		return 1;
-}
-</code></pre>
-<p>🙌<strong>动手扫码关注“计算机视觉二三事”公众号，带你从小白入坑计算机视觉。</strong><br>
-<img src="https://JustCodingJzx.github.io/post-images/1595590051225.jpg" alt="" loading="lazy"></p>
+<p>2.修饰函数</p>
+<p>​	函数的作用域仅限于本文件（内部函数）。</p>
 
             </div>
           </article>
@@ -167,9 +109,9 @@ strcpy(p, &quot;abc&quot;);
               <div class="next">
                 下一篇
               </div>
-              <a href="https://JustCodingJzx.github.io/post/jie-gou-lian-he-mei-ju/">
+              <a href="https://JustCodingJzx.github.io/post/nei-cun-fen-pei/">
                 <h3 class="post-title">
-                  结构 联合 枚举
+                  内存分配
                 </h3>
               </a>
             </div>
@@ -246,7 +188,7 @@ strcpy(p, &quot;abc&quot;);
           c/c++
         </a>
       
-        <a href="https://JustCodingJzx.github.io/tag/Q7kovOY9K/" class="badge success">
+        <a href="https://JustCodingJzx.github.io/tag/Q7kovOY9K/" class="badge secondary">
           Gridea
         </a>
       
